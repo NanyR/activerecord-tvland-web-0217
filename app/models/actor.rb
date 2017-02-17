@@ -1,3 +1,21 @@
+
+require 'pry'
 class Actor < ActiveRecord::Base
-  
+  has_many :characters
+  has_many :shows, through: :characters
+
+  def full_name
+    self.first_name
+    self.last_name
+    "#{self.first_name} #{self.last_name}"
+  end
+
+  def list_roles
+    characters_array=[]
+    self.characters.all.each do |character|
+      characters_array<< "#{character.name} - #{character.show.name}"
+    end
+      characters_array  
+  end
+
 end
